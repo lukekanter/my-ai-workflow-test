@@ -10,3 +10,13 @@ package.xml
 
 # LWC Jest
 **/__tests__/**
+
+# Exclude all profiles from being retrieved or deployed
+**/profiles/**
+*.profile-meta.xml
+*.profile
+
+# Also recommended to exclude these messy metadata types
+**/settings/**
+**/appMenus/**
+**/objectTranslations/**
