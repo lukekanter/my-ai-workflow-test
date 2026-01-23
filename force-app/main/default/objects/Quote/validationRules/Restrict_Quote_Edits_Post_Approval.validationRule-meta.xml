@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Restrict_Quote_Edits_Post_Approval</fullName>
+    <active>true</active>
+    <description>Restrict Quote edits post-approval, allowing only stage progression (Approved→Presented/Accepted/Denied, Presented→Accepted/Denied, Accepted/Denied→locked), with Admins exempt.</description>
+    <errorConditionFormula>AND(
+    $Profile.Name &lt;&gt; &apos;System Administrator&apos;,
+    OR(
+        AND(
+            ISPICKVAL(PRIORVALUE(Status), &apos;Approved&apos;),
+            OR(
+                NOT(ISCHANGED(Status)),
+                AND(
+                    NOT(ISPICKVAL(Status, &apos;Presented&apos;)),
+                    NOT(ISPICKVAL(Status, &apos;Accepted&apos;)),
+                    NOT(ISPICKVAL(Status, &apos;Denied&apos;))
+                )
+            )
+        ),
+        AND(
+            ISPICKVAL(PRIORVALUE(Status), &apos;Presented&apos;),
+            OR(
+                NOT(ISCHANGED(Status)),
+                AND(
+                    NOT(ISPICKVAL(Status, &apos;Accepted&apos;)),
+                    NOT(ISPICKVAL(Status, &apos;Denied&apos;))
+                )
+            )
+        ),
+        ISPICKVAL(PRIORVALUE(Status), &apos;Accepted&apos;),
+        ISPICKVAL(PRIORVALUE(Status), &apos;Denied&apos;)
+    )
+)</errorConditionFormula>
+    <errorMessage>Quote interactions are restricted post-approval. You can only advance the Status.</errorMessage>
+</ValidationRule>
