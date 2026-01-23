@@ -31,63 +31,72 @@ private class TriggerHandlerTest {
 
   @isTest
   static void testBeforeInsert() {
-    new TestHandler().setTriggerContext('before insert', true);
-    new TestHandler().run();
+    TestHandler handler = new TestHandler();
+    handler.setTriggerContext('before insert', true);
+    handler.run();
     System.assertEquals('beforeInsert', lastMethodCalled, 'beforeInsert should be called');
   }
 
   @isTest
   static void testBeforeUpdate() {
-    new TestHandler().setTriggerContext('before update', true);
-    new TestHandler().run();
+    TestHandler handler = new TestHandler();
+    handler.setTriggerContext('before update', true);
+    handler.run();
     System.assertEquals('beforeUpdate', lastMethodCalled, 'beforeUpdate should be called');
   }
 
   @isTest
   static void testBeforeDelete() {
-    new TestHandler().setTriggerContext('before delete', true);
-    new TestHandler().run();
+    TestHandler handler = new TestHandler();
+    handler.setTriggerContext('before delete', true);
+    handler.run();
     System.assertEquals('beforeDelete', lastMethodCalled, 'beforeDelete should be called');
   }
 
   @isTest
   static void testAfterInsert() {
-    new TestHandler().setTriggerContext('after insert', true);
-    new TestHandler().run();
+    TestHandler handler = new TestHandler();
+    handler.setTriggerContext('after insert', true);
+    handler.run();
     System.assertEquals('afterInsert', lastMethodCalled, 'afterInsert should be called');
   }
 
   @isTest
   static void testAfterUpdate() {
-    new TestHandler().setTriggerContext('after update', true);
-    new TestHandler().run();
+    TestHandler handler = new TestHandler();
+    handler.setTriggerContext('after update', true);
+    handler.run();
     System.assertEquals('afterUpdate', lastMethodCalled, 'afterUpdate should be called');
   }
 
   @isTest
   static void testAfterDelete() {
-    new TestHandler().setTriggerContext('after delete', true);
-    new TestHandler().run();
+    TestHandler handler = new TestHandler();
+    handler.setTriggerContext('after delete', true);
+    handler.run();
     System.assertEquals('afterDelete', lastMethodCalled, 'afterDelete should be called');
   }
 
   @isTest
   static void testAfterUndelete() {
-    new TestHandler().setTriggerContext('after undelete', true);
-    new TestHandler().run();
+    TestHandler handler = new TestHandler();
+    handler.setTriggerContext('after undelete', true);
+    handler.run();
     System.assertEquals('afterUndelete', lastMethodCalled, 'afterUndelete should be called');
   }
 
   @isTest
   static void testBypassAPI() {
     TriggerHandler.bypass('TestHandler');
-    new TestHandler().setTriggerContext('before insert', true);
-    new TestHandler().run();
+    TestHandler handler = new TestHandler();
+    handler.setTriggerContext('before insert', true);
+    handler.run();
     System.assertEquals(null, lastMethodCalled, 'Handler should be bypassed');
 
     TriggerHandler.clearBypass('TestHandler');
-    new TestHandler().setTriggerContext('before insert', true);
-    new TestHandler().run();
+    handler = new TestHandler();
+    handler.setTriggerContext('before insert', true);
+    handler.run();
     System.assertEquals('beforeInsert', lastMethodCalled, 'Handler should execute after clear bypass');
   }
   
